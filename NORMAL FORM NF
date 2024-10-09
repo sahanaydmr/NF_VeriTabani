@@ -1,0 +1,121 @@
+                                                                                                                NF (NORMAL FORM)
+
+Veri tabanları, büyük miktarda veriyi düzenli ve erişilebilir bir şekilde saklamak için kullanılır.
+Normalizasyon, bu verilerin daha iyi yönetilmesini sağlayan bir süreçtir.
+
+      Normalizasyon; veri tabanı tasarım aşamasında veri tekrarını, veri kaybını veya veri yetersizliğini önlemek için gerçekleştirilen işlemlerdir.
+
+Amaç, verileri düzenli hale getirerek tekrarları azaltmak ve veri bütünlüğünü sağlamaktır.
+
+    1. Normal Form (1NF):
+    Bu aşama, verilerin tekil değerler içermesini sağlar. Yani, her hücrede sadece bir değer olmalıdır. Örneğin, bir müşterinin telefon numaraları ayrı hücrelerde saklanmalıdır.
+
+            1. Tekil Değerler:
+              Bir veri alanında (örneğin, bir müşteri kaydı) birden fazla bilgi bulunamaz. Örneğin, bir müşterinin telefon numaralarını aynı alanda listelemek yerine, her bir telefon numarasını ayrı bir alanda saklamamız gerekir.
+
+            2. Tekrarlanan Gruplar Olmamalıdır:
+              Eğer bir veride birden fazla tekrar eden grup varsa (örneğin, bir müşteri birden fazla adres veya telefon numarasına sahipse), bu gruplar ayrı tablolara taşınmalıdır. Böylece, veri tabanı daha düzenli hale gelir.
+
+                      Örnek:
+                                                    Diyelim ki bir müşteri tablosunda şu bilgileri saklıyoruz:
+
+                                                           Müşteri ID	  İsim	  Telefonlar
+                                                                1	      Ahmet	  1234567890, 0987654321
+                                                                2 	    Ayşe	  1112223333        
+                                          
+                                              Bu tablo 1NF'ye uygun değildir çünkü "Telefonlar" sütununda birden fazla değer bulunmaktadır.
+
+
+                                              1NF'ye dönüştürmek için bu tabloyu şu şekilde düzenleyebiliriz:
+
+                                                          Müşteri ID	  İsim	  Telefon
+                                                                  1	    Ahmet	  1234567890
+                                                                  1	    Ahmet	  0987654321
+                                                                  2	    Ayşe	  1112223333
+
+
+
+                      Sonuç:
+                            1NF, veri tabanında bilgilerin daha düzenli ve erişilebilir olmasını sağlar. Bu aşama, veri analizi ve yönetimi için önemli bir temeldir.
+                            1NF'yi uygulamak, daha sonraki normalizasyon aşamalarında da kolaylık sağlar.
+
+
+
+
+
+
+        2. Normal Form (2NF):
+        1NF'yi tamamladıktan sonra, bu aşama verilerin benzerlerini düzenler. Yani, bir sütundaki değerlerin diğer sütunlardaki değerlerden tamamen bağımsız olması sağlanır.
+
+            1. Tam Bağımlılık
+              Her sütun, anahtar sütununa tamamen bağlı olmalıdır. 
+              Yani, bir sütundaki değer diğer bir sütundaki değerin yalnızca bir kısmına bağlıysa, bu bağlılık tam olarak sağlanmamış demektir. Bu durumda, veriler ayrı tablolara bölünmelidir.
+
+
+          Bağımlılık, veri tabanlarında bir veri öğesinin (sütun) başka bir veri öğesine (sütun) olan ilişkisini ifade eder. Yani, bir sütunun değeri, başka bir sütunun değerine nasıl bağlı olduğunu gösterir. 
+          Bağımlılıklar, verilerin nasıl organize edildiğini ve düzenlendiğini anlamamızda kritik bir rol oynar.
+
+
+
+            2. Alt Küme Bağımlılığı
+              Bir veri setinin bir kısmının diğer verilerle ilişkili olması durumu, 2NF kapsamında sorun yaratır.
+
+                        Örnek
+                                                    Diyelim ki elimizde 1NF'ye uygun bir müşteri sipariş tablosu var:
+
+                                                          Müşteri  ID	  Müşteri  Adı	  Ürün	  Ürün Fiyatı
+                                                                   1	    Ahmet	        Kitap	      20
+                                                                   1	    Ahmet	        Defter	    5
+                                                                   2	    Ayşe	        Kalem	      2
+
+                                              Bu tablo 1NF'ye uygundur, ancak 2NF'ye uygun değildir çünkü "Müşteri Adı" ve "Ürün Fiyatı" sütunları, yalnızca "Müşteri ID" ve "Ürün" sütunlarına kısmi bağımlıdır. 
+                                              Yani, "Müşteri Adı" sadece "Müşteri ID" ile ilişkilidir ve "Ürün Fiyatı" sadece "Ürün" ile ilişkilidir.
+
+
+                                              2NF'ye Dönüştürme
+                                              Bu durumu düzeltmek için tabloyu iki ayrı tabloya ayırabiliriz:
+
+                                                              Müşteri Tablosu:
+
+                                                            Müşteri ID	      Müşteri Adı
+                                                                    1        	Ahmet
+                                                                    2	        Ayşe
+
+                                                              Sipariş Tablosu:
+
+                                                            Müşteri ID      	Ürün	      Ürün Fiyatı
+                                                                    1	        Kitap	      20
+                                                                    1	        Defter	    5
+                                                                    2	        Kalem	      2
+                                            
+                                              Bu şekilde, "Müşteri Adı" ve "Ürün Fiyatı" sütunları, yalnızca ilgili anahtar sütunlarına tamamen bağımlı hale gelmiştir.
+
+                            Sonuç:
+                                  2NF, veri tabanındaki bağımlılıkları düzenleyerek veri tutarlılığını artırır. 
+                                  Bu aşama, ilerideki normalizasyon aşamalarında daha karmaşık yapılar oluşturmanın temelini atar.
+
+
+
+
+
+            
+
+
+            3. Normal Form (3NF):
+            Bu aşama, geçersiz bağımlılıkları ortadan kaldırır. Eğer bir sütun, başka bir sütuna bağımlıysa ve bu bağımlılık gereksizse, bu durumda o sütun taşınmalıdır.
+
+                Boyut Normalizasyonu (BCNF):
+                Daha karmaşık bağımlılıkları ele alan bir aşamadır. Bu aşamada, bazı bağımlılıkların doğru şekilde düzenlenmesi sağlanır.
+
+
+
+        Normalizasyonun Avantajları:
+
+        Veri Bütünlüğü: Veriler tutarlı ve hatasız bir şekilde saklanır.
+        Veri Tekrarını Önleme: Aynı verilerin birden fazla yerde saklanması engellenir.
+        Güncelleme Anomalilerinin Azaltılması: Verideki bir değişiklik, her yerde otomatik olarak güncellenir.
+
+            Normalizasyonun Dezavantajları:
+
+            Performans Sorunları: Çok sayıda tabloya bölündüğünde, veriye erişim süresi uzayabilir.
+            Karmaşıklık: Veri tabanı yapısı karmaşık hale gelebilir, bu da yönetimi zorlaştırabilir.
